@@ -1,0 +1,11 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="four_dp_margin">4dp</dimen>
+    <dimen name="main_text_size">32sp</dimen>
+    <dimen name="card_size">150dp</dimen>
+    <dimen name="place_holder_width">8dp</dimen>
+    <dimen name="place_holder_height">32dp</dimen>
+    <dimen name="product_img_width">100dp</dimen>
+</resources>
