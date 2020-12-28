@@ -8,11 +8,4 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class app :Application() {
-    override fun onCreate() {
-        super.onCreate()
-        val settings = firestoreSettings {
-            isPersistenceEnabled = true
-        }
-
-    }
 }

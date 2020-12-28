@@ -15,39 +15,35 @@
     android:layout_height="wrap_content"
    >
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.jackandphantom.circularimageview.RoundedImage
         android:layout_width="@dimen/product_img_width"
         android:id="@+id/product_img"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         setImageByGlide="@{product.itemImageUrl}"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
         tools:src="@drawable/secondad" />
 
 
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-
         android:elevation="8dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
         android:clipToPadding="false"
         android:clipChildren="false"
-        app:cardElevation="10dp"
+        app:cardElevation="4dp"
         app:cardPreventCornerOverlap="false"
         app:layout_constraintBottom_toBottomOf="@+id/product_img"
-
         app:layout_constraintStart_toEndOf="@+id/product_img"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
@@ -56,7 +52,7 @@
                 android:textSize="16sp"
                 android:text="@{product.itemName}"
                 android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Wood Samir lolo hhh lllssssxsssssss " />

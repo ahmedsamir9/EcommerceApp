@@ -9,7 +9,16 @@
         android:id="@+id/navigation_home"
         android:name="com.example.ecommerce.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_categoryFragment"
+            app:destination="@id/categoryFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +31,13 @@
         android:name="com.example.ecommerce.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.ecommerce.ui.Category.CategoryFragment"
+        android:label="category_fragment"
+        tools:layout="@layout/category_fragment" >
+        <argument
+            android:name="category"
+            app:argType="com.example.ecommerce.model.Category" />
+    </fragment>
 </navigation>

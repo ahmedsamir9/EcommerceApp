@@ -1,5 +1,6 @@
 package com.example.ecommerce.modules
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ktx.firestoreSettings
@@ -10,8 +11,9 @@ import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
 
-@InstallIn(ApplicationComponent::class)
+
 @Module
+@InstallIn(ApplicationComponent::class)
 class FireBaseModule {
     @Provides
     @Singleton
@@ -23,4 +25,9 @@ class FireBaseModule {
         db.firestoreSettings = settings
         return db
     }
+    @Provides
+    @Singleton
+    public fun proviedAuthInstance():FirebaseAuth= FirebaseAuth.getInstance()
+
+
 }

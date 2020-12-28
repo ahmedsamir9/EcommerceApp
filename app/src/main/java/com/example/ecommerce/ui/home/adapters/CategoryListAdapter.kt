@@ -12,8 +12,9 @@ import com.example.ecommerce.databinding.CategoryItemBinding
 import com.example.ecommerce.model.Category
 import com.example.ecommerce.utils.CONSTANTS
 import com.example.ecommerce.utils.OnClickOnItem
+import com.example.ecommerce.utils.removeSpace
 
-class CategoryListAdapter(private val interaction:OnClickOnItem? = null) :
+class CategoryListAdapter(private val interaction:Interaction? = null) :
     ListAdapter<Category, CategoryListAdapter.CategoryViewHolder>(CategoryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -28,29 +29,25 @@ class CategoryListAdapter(private val interaction:OnClickOnItem? = null) :
 
     inner class CategoryViewHolder(
        val binder: CategoryItemBinding,
-        private val interaction: OnClickOnItem?
-    ) : RecyclerView.ViewHolder(binder.root), OnClickListener {
-
-        init {
-            binder.root.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-
-            if (adapterPosition == RecyclerView.NO_POSITION) return
-
-
-        }
+        private val interaction: Interaction?
+    ) : RecyclerView.ViewHolder(binder.root) {
 
         fun bind(item: Category) {
+            binder.root.setOnClickListener {
+                interaction?.onItemSelected(item)
+            }
             binder.categoryName.text = item.name
-            when(item.name){
+            when(item.name.removeSpace()){
                 CONSTANTS.CATEGORY_CARS -> binder.categoryImg.setImageResource(R.drawable.ic_car)
                 CONSTANTS.CATEGORY_CLOTHEES -> binder.categoryImg.setImageResource(R.drawable.ic_tshirt)
                 CONSTANTS.CATEGORY_ELECTONICS -> binder.categoryImg.setImageResource(R.drawable.ic_cpu)
                 CONSTANTS.CATEGORY_FURNITURE -> binder.categoryImg.setImageResource(R.drawable.ic_furniture)
             }
         }
+    }
+    interface Interaction {
+
+        fun onItemSelected(item:Category)
     }
 
 

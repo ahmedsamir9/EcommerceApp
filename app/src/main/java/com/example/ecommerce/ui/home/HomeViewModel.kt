@@ -1,11 +1,9 @@
 package com.example.ecommerce.ui.home
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.ecommerce.model.Category
+import com.example.ecommerce.model.Product
 import com.example.ecommerce.repository.HomeRepository
 import com.example.ecommerce.utils.Resources
 import com.google.firebase.firestore.ktx.toObject
@@ -14,13 +12,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 import java.util.*
-import com.example.ecommerce.model.Categories as Categories
 
 
-class HomeViewModel  (private val homeRepository: HomeRepository) : ViewModel() {
-        private val _categories = MutableLiveData<Resources<Categories>>()
-        val categories:LiveData<Resources<Categories>>
+
+class HomeViewModel @ViewModelInject constructor (private val homeRepository: HomeRepository) : ViewModel(),LifecycleObserver {
+        private val _categories = MutableLiveData<Resources<List<Category>>>()
+        val categories:LiveData<Resources<List<Category>>>
         get() = _categories
+        private val _products = MutableLiveData<Resources<List<Product>>>()
+        val products:LiveData<Resources<List<Product>>>
+        get() = _products
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
         fun getCategories(){
             viewModelScope.launch {
                 _categories.postValue(Resources.loading(null))
@@ -39,8 +41,42 @@ class HomeViewModel  (private val homeRepository: HomeRepository) : ViewModel() 
                     }
                     catch (exception : Exception){
                         _categories.postValue(Resources.error(exception.localizedMessage , null))
+
                     }
                 }
             }
         }
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun getProducts(){
+        viewModelScope.launch {
+            _products.postValue(Resources.loading(null))
+            withContext(Dispatchers.IO){
+                try {
+
+                    val result = homeRepository.getProducts()
+                    val products = mutableListOf<Product>();
+                    for(document in result.documents) {
+                        val product = document.toObject<Product>()
+                        product?.let {
+                           products.add(it)
+                        }
+                    }
+                    _products.postValue(Resources.success(products.shuffled()))
+                }
+                catch (exception : Exception){
+                    _products.postValue(Resources.error(exception.localizedMessage , null))
+
+                }
+            }
+        }
+    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun logging(){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                homeRepository.login()
+            }
+        }
+
+    }
 }

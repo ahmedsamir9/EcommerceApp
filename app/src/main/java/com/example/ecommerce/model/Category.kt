@@ -1,4 +1,9 @@
 package com.example.ecommerce.model
 
-data class Category (val id :String , val name :String)
-typealias Categories = List<Category>
+import android.os.Parcel
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Category constructor(val id :String="" , val name :String=""):Parcelable
+
