@@ -18,13 +18,19 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             />
+        <action
+            android:id="@+id/action_navigation_home_to_produtFragment"
+            app:destination="@id/produtFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_cart"
         android:name="com.example.ecommerce.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_cart" />
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -39,5 +45,26 @@
         <argument
             android:name="category"
             app:argType="com.example.ecommerce.model.Category" />
+        <action
+            android:id="@+id/action_categoryFragment_to_produtFragment2"
+            app:destination="@id/produtFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/produtFragment"
+        android:name="com.example.ecommerce.ui.ProductDetails.ProdutFragment"
+        android:label="produt_fragment"
+        tools:layout="@layout/produt_fragment" >
+        <argument
+            android:name="product"
+            app:argType="com.example.ecommerce.model.Product" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.ecommerce.ui.search.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_produtFragment"
+            app:destination="@id/produtFragment"
+            />
     </fragment>
 </navigation>

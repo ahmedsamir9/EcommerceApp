@@ -4,18 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerce.R
 import com.example.ecommerce.databinding.FragmentHomeBinding
 import com.example.ecommerce.model.Category
+import com.example.ecommerce.model.Product
 import com.example.ecommerce.ui.home.adapters.CategoryListAdapter
 
 import com.example.ecommerce.ui.home.adapters.ProductAdapter
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     lateinit var categoryAdapter :CategoryListAdapter
     lateinit var productAdapter : ProductAdapter
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         uiDisapperAndAppearInActivity =context as UiDisapperAndAppearInActivity
@@ -53,17 +55,36 @@ class HomeFragment : Fragment() {
             }
         })
 
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter(object :ProductAdapter.Interaction{
+            override fun onItemSelected(item: Product, imageView: ImageView) {
+                val extras = FragmentNavigatorExtras(
+                        imageView to item.itemImageUrl
+                )
+                val action = HomeFragmentDirections.actionNavigationHomeToProdutFragment(product = item)
+                findNavController().navigate(action)
+            }
+
+        })
         viewLifecycleOwner.lifecycle.addObserver(homeViewModel)
         setUpRecyclerView()
-
+        setHasOptionsMenu(true)
         return homeBinding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.other_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
     override fun onStart() {
         super.onStart()
         uiDisapperAndAppearInActivity.showNav()
-
+        uiDisapperAndAppearInActivity.showToolBar()
+        homeBinding.retryBtnProduct.setOnClickListener {
+            homeViewModel.getProducts()
+        }
+        homeBinding.retryBtnCate.setOnClickListener {
+            homeViewModel.getCategories()
+        }
         subscribeToLiveData()
     }
     private fun subscribeToLiveData(){
@@ -135,5 +156,13 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = productAdapter
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.search_btn){
+            val action =HomeFragmentDirections.actionNavigationHomeToSearchFragment()
+            findNavController().navigate(action)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

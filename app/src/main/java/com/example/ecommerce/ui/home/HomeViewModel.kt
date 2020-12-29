@@ -22,6 +22,7 @@ class HomeViewModel @ViewModelInject constructor (private val homeRepository: Ho
         private val _products = MutableLiveData<Resources<List<Product>>>()
         val products:LiveData<Resources<List<Product>>>
         get() = _products
+        var isNotShuffled= true
         @OnLifecycleEvent(Lifecycle.Event.ON_START)
         fun getCategories(){
             viewModelScope.launch {
@@ -54,14 +55,19 @@ class HomeViewModel @ViewModelInject constructor (private val homeRepository: Ho
                 try {
 
                     val result = homeRepository.getProducts()
-                    val products = mutableListOf<Product>();
+                    var products = mutableListOf<Product>();
+
                     for(document in result.documents) {
                         val product = document.toObject<Product>()
                         product?.let {
                            products.add(it)
                         }
                     }
-                    _products.postValue(Resources.success(products.shuffled()))
+                    if (isNotShuffled){
+                       products.shuffle()
+                        isNotShuffled= false
+                    }
+                    _products.postValue(Resources.success(products))
                 }
                 catch (exception : Exception){
                     _products.postValue(Resources.error(exception.localizedMessage , null))

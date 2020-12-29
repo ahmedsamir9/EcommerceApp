@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerce.R
 import com.example.ecommerce.databinding.CategoryFragmentBinding
 import com.example.ecommerce.model.Category
+import com.example.ecommerce.model.Product
+import com.example.ecommerce.ui.home.HomeFragmentDirections
 import com.example.ecommerce.utils.Status
 import com.example.ecommerce.utils.UiDisapperAndAppearInActivity
 import com.example.ecommerce.utils.isVisible
@@ -49,7 +53,15 @@ class CategoryFragment : Fragment() {
         category = args.category
         (activity as AppCompatActivity?)!!.supportActionBar!!.title = category.name
 
-        catAdapter = CategoryProductsAdapter()
+        catAdapter = CategoryProductsAdapter(object :CategoryProductsAdapter.Interaction{
+            override fun onItemSelected(imageView: ImageView, item: Product) {
+                val extras = FragmentNavigatorExtras(
+                        imageView to item.itemImageUrl
+                )
+                val action = CategoryFragmentDirections.actionCategoryFragmentToProdutFragment2(product = item)
+                findNavController().navigate(action)
+            }
+        })
         setUpRecyclerView()
         return categoryFragmentBinding.root
     }
@@ -67,7 +79,12 @@ class CategoryFragment : Fragment() {
         super.onStart()
         categoryViewModel.getProducts(category.id)
         uiDisapperAndAppearInActivity.hideNav()
+        uiDisapperAndAppearInActivity.showToolBar()
+        categoryFragmentBinding.retryBtnProduct.setOnClickListener {
+            categoryViewModel.getProducts(category.id)
+        }
         subscribeToLiveData()
+
     }
     private fun subscribeToLiveData(){
 

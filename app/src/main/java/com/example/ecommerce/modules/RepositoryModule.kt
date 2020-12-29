@@ -1,7 +1,7 @@
 package com.example.ecommerce.modules
 
-import com.example.ecommerce.repository.CategoryRepo
-import com.example.ecommerce.repository.HomeRepository
+import com.example.ecommerce.repository.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -15,8 +15,17 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Provides
     @Singleton
-    public fun provideHomeRepoInstance(firebaseFirestore: FirebaseFirestore) = HomeRepository(firebaseFirestore)
+    public fun provideHomeRepoInstance(firebaseFirestore: FirebaseFirestore,firebaseAuth: FirebaseAuth) = HomeRepository(firebaseFirestore,firebaseAuth)
     @Provides
     @Singleton
     public fun provideCategoeyRepoInstance(firebaseFirestore: FirebaseFirestore) = CategoryRepo(firebaseFirestore)
+    @Provides
+    @Singleton
+    public fun provideProductRepoInstance(firebaseFirestore: FirebaseFirestore,firebaseAuth: FirebaseAuth) = ProductRepo(firebaseFirestore,firebaseAuth)
+    @Provides
+    @Singleton
+    public fun provideCheckOutRepoInstance(firebaseFirestore: FirebaseFirestore,firebaseAuth: FirebaseAuth) = CheckoutRepo(firebaseFirestore,firebaseAuth)
+    @Provides
+    @Singleton
+    public fun provideSearchRepoInstance(firebaseFirestore: FirebaseFirestore) = SearchRepo(firebaseFirestore)
 }

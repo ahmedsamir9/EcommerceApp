@@ -1,10 +1,12 @@
 package com.example.ecommerce.ui.home.adapters
 
+import android.media.Image
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.View.OnClickListener
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.ecommerce.R
@@ -26,27 +28,21 @@ class ProductAdapter(private val interaction: Interaction? = null) :
     inner class ProductViewHolder(
         val productItemBinding: ProductItemBinding,
         private val interaction: Interaction?
-    ) : RecyclerView.ViewHolder(productItemBinding.root), OnClickListener {
+    ) : RecyclerView.ViewHolder(productItemBinding.root) {
 
-        init {
-            itemView.setOnClickListener(this)
-        }
 
-        override fun onClick(v: View?) {
-
-            if (adapterPosition == RecyclerView.NO_POSITION) return
-
-            interaction?.onItemSelected(adapterPosition, getItem(adapterPosition))
-        }
 
         fun bind(item: Product) {
             productItemBinding.product =item
+            productItemBinding.root.setOnClickListener {
+                interaction?.onItemSelected(item,productItemBinding.productImg)
+            }
         }
     }
 
     interface Interaction {
 
-        fun onItemSelected(position: Int, item: Product)
+        fun onItemSelected(item: Product,imageView:ImageView)
     }
 
     private class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {

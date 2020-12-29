@@ -26,11 +26,15 @@ private lateinit var activityMainBinding: ActivityMainBinding
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
+                R.id.navigation_home, R.id.navigation_cart, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp()||super.onSupportNavigateUp()
+    }
     override fun showToolBar() {
         supportActionBar?.show()
     }
