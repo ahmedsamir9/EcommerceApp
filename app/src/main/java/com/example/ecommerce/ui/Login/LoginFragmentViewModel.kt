@@ -22,6 +22,7 @@ class LoginFragmentViewModel @ViewModelInject constructor(private val loginRepo:
             withContext(Dispatchers.IO){
                 try {
                     loginRepo.logUserToFireBase(email,password)
+                    _message.postValue("done")
                 }
                 catch (ex :Exception){
                     _message.postValue(ex.localizedMessage)

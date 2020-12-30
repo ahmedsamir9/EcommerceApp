@@ -18,7 +18,7 @@ class ProductRepo(val firestore: FirebaseFirestore,val firebaseAuth: FirebaseAut
             val userId=firebaseAuth.currentUser!!.uid
             var result =firestore.collection(CONSTANTS.OREDER_KEY).whereEqualTo("orderState",CONSTANTS.OREDER_STATE_INCOMPLETE).whereEqualTo("customerId",userId).get().await()
             if (result.isEmpty || result == null){
-                firestore.collection(CONSTANTS.OREDER_KEY).add(Order(userId,0,0
+                firestore.collection(CONSTANTS.OREDER_KEY).add(Order(userId,0.0,0.0
                         ,CONSTANTS.OREDER_STATE_INCOMPLETE)).await()
             }
             result =firestore.collection(CONSTANTS.OREDER_KEY).whereEqualTo("orderState",CONSTANTS.OREDER_STATE_INCOMPLETE).whereEqualTo("customerId",userId).get().await()

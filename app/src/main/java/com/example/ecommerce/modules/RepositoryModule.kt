@@ -24,7 +24,9 @@ class RepositoryModule {
     @Provides
     @Singleton
     public fun provideProductRepoInstance(firebaseFirestore: FirebaseFirestore,firebaseAuth: FirebaseAuth,networkHelper: NetworkHelper) = ProductRepo(firebaseFirestore,firebaseAuth,networkHelper)
-
+    @Provides
+    @Singleton
+    public fun provideMapRepoInstance(firebaseFirestore: FirebaseFirestore) = MapRepo(firebaseFirestore)
     @Provides
     @Singleton
     public fun provideCheckOutRepoInstance(firebaseFirestore: FirebaseFirestore,firebaseAuth: FirebaseAuth,networkHelper: NetworkHelper) = CheckoutRepo(firebaseFirestore,firebaseAuth,networkHelper)

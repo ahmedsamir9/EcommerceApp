@@ -26,5 +26,6 @@
     <string name="shr_error_email">Enter Vaild Email</string>
     <string name="profile">Profile</string>
     <string name="title_activity_maps">Map</string>
+    <string name="check_out_now">Check Out Now</string>
 
 </resources>
