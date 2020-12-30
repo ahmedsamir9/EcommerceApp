@@ -7,7 +7,9 @@
             name="product"
             type="com.example.ecommerce.model.Product" />
     </data>
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,6 +31,7 @@
         android:id="@+id/product_img"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         setImageByGlide="@{product.itemImageUrl}"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,11 +138,12 @@
         android:id="@+id/product_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="1"
+
         android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/order_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView6"
         tools:text="1" />
@@ -149,7 +153,7 @@
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:insetLeft="0dp"
         android:insetTop="0dp"
@@ -160,7 +164,6 @@
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/order_btn"
         app:layout_constraintEnd_toStartOf="@+id/product_quantity"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView6"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
@@ -171,7 +174,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:insetLeft="0dp"
         android:insetTop="0dp"
         android:insetRight="0dp"
@@ -181,7 +184,6 @@
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/order_btn"
         app:layout_constraintStart_toEndOf="@+id/product_quantity"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView6"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
@@ -191,9 +193,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Order Now"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_quantity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 </layout>

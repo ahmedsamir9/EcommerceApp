@@ -8,6 +8,7 @@ object CONSTANTS {
     val CATEGORY_KEY = "Categories"
     val PRODUCT_KEY = "product"
     val OREDER_KEY = "Orders"
+    val USER_KEY = "Users"
     val OREDER_STATE_INCOMPLETE = "incomplete"
     val OREDER_STATE_COMPLETE = "complete"
     val OREDER_STATE_Deliverd = "Delivered"
@@ -16,4 +17,8 @@ object CONSTANTS {
     val ORDER_PRODUCT_PRODUCT_ID = "productId"
     val ORDER_PRODUCT_ORDER_ID = "quantity"
     val REQUEST_TO_VOICE = 100
+    val REMEMBER_KEK_IN_PERF="Remember"
+    val REMEMBER_OPTION_REMMBERED= "REMEMBERD"
+    val REMEMBER_OPTION_NOTREMMBERED= "NOTREMEMBERD"
+
 }

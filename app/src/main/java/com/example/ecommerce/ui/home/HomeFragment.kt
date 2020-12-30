@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         uiDisapperAndAppearInActivity =context as UiDisapperAndAppearInActivity
+
     }
     override fun onCreateView(
         inflater: LayoutInflater,

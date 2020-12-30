@@ -22,5 +22,8 @@
     <string name="details">Details :</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="remove">Remove</string>
+    <string name="shr_error_password">Please Password must be greater than 8 letters</string>
+    <string name="shr_error_email">Enter Vaild Email</string>
+    <string name="profile">Profile</string>
 
 </resources>

@@ -16,3 +16,12 @@ fun setImageByGlide(imageView: ImageView,path:String? ){
             .placeholder(R.drawable.ic_loader)
             .into(imageView);
 }
+
+@BindingAdapter("setProfile")
+fun setProfile(imageView: ImageView,path:String? ){
+        path?.let {
+                if (path == "male") imageView.setImageResource(R.drawable.ic_boy)
+                else imageView.setImageResource(R.drawable.ic_female)
+        }
+
+}

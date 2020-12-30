@@ -21,15 +21,20 @@ class ProdutViewModel @ViewModelInject constructor(private val productRepo :Prod
         get() = _reqState
     fun addProductToOrder(product: Product){
         viewModelScope.launch {
-                withContext(Dispatchers.IO){
-                    _reqState.postValue(Resources.loading(null))
-                    try {
+                if (productRepo.networkHelper.isNetworkConnected()){
+                    withContext(Dispatchers.IO){
+                        _reqState.postValue(Resources.loading(null))
+                        try {
                             productRepo.makeOrder(product)
                             _reqState.postValue(Resources.success(Unit))
-                    }catch (exception:Exception){
-                        _reqState.postValue(Resources.error("error",null))
+                        }catch (exception:Exception){
+                            _reqState.postValue(Resources.error("error",null))
+                        }
                     }
-            }
+                }
+            else
+                _reqState.postValue(Resources.error("error",null))
+
 
         }
     }

@@ -4,13 +4,14 @@ import com.example.ecommerce.model.Order
 import com.example.ecommerce.model.OrderWithProduct
 import com.example.ecommerce.model.Product
 import com.example.ecommerce.utils.CONSTANTS
+import com.example.ecommerce.utils.NetworkHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 
-class ProductRepo(val firestore: FirebaseFirestore,val firebaseAuth: FirebaseAuth) {
+class ProductRepo(val firestore: FirebaseFirestore,val firebaseAuth: FirebaseAuth,val networkHelper: NetworkHelper) {
 
     suspend fun makeOrder(product: Product) {
         try {
