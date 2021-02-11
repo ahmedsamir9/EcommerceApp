@@ -20,7 +20,7 @@
 - [12] upcoming feature : show User cart history 
 
 ## 📱 Screenshots 
-<img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s1.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s2.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s7.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s3.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s4.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s5.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s6.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s8.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s9.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s10.PNG"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pics/s11.PNG">
+<img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q1.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q2.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q3.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q3_1.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q4.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q5.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q6.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q7.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q8.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q9.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q10.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q14.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q15.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q16.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q17.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q11.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q12.jpeg"><img width="150" alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/q13.jpeg">
 
 ## Requirements
  * android Lollipop or higher
@@ -45,7 +45,7 @@
 <img alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/final-architecture.png">
 
 ## Navigation graph :
-<img alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/final-architecture.png">
+<img alt="Screen Shot 2020-09-04 at 2 48 55 PM" src="/pic/nav.PNG">
 
 ## Resources
 - [dagger Hilt](https://www.youtube.com/watch?v=nfazwQFQjAM)
