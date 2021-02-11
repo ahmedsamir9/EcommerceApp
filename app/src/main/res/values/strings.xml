@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Ecommerce</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">Shopping Cart</string>
+    <string name="title_notifications">Profile</string>
     <string name="boxo">Boxo</string>
     <string name="emailhint">Email</string>
     <string name="password_hint">Password</string>
@@ -25,5 +25,7 @@
     <string name="shr_error_password">Please Password must be greater than 8 letters</string>
     <string name="shr_error_email">Enter Vaild Email</string>
     <string name="profile">Profile</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="check_out_now">Check Out Now</string>
 
 </resources>

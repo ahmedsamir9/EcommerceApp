@@ -19,6 +19,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.ecommerce.R
 import com.example.ecommerce.databinding.SignInFragmentBinding
 import com.example.ecommerce.model.User
+import com.example.ecommerce.utils.LoaderDialog
+import com.example.ecommerce.utils.Status
 import com.example.ecommerce.utils.UiDisapperAndAppearInActivity
 import com.example.ecommerce.utils.isVisible
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,11 +35,13 @@ class SignInFragment : Fragment() ,View.OnClickListener{
     private lateinit var uiDisapperAndAppearInActivity: UiDisapperAndAppearInActivity
     private val viewModel: SignInViewModel by viewModels()
     private lateinit var signInFragmentBinding: SignInFragmentBinding
+    private lateinit var loadingDialog : LoaderDialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
       signInFragmentBinding  =DataBindingUtil.inflate(inflater, R.layout.sign_in_fragment, container, false)
         signInFragmentBinding.signBrithDay.setOnClickListener(this)
         signInFragmentBinding.signBtn.setOnClickListener(this)
+        loadingDialog = LoaderDialog(requireActivity())
         return signInFragmentBinding.root
     }
 
@@ -59,42 +63,24 @@ class SignInFragment : Fragment() ,View.OnClickListener{
                 vaildation()
             }
             R.id.sign_BrithDay -> {
-
-                val cal: Calendar = Calendar.getInstance()
-                val year = cal.get(Calendar.YEAR);
-                val month = cal.get(Calendar.MONTH);
-                val day = cal.get(Calendar.DAY_OF_MONTH);
-                val mDateSetListener = OnDateSetListener { datePicker, year, month, day ->
-                    var month = month
-                    month = month + 1
-
-                    val date = "$day/$month/$year"
-                    signInFragmentBinding.signBrithDay.setText(date)
-                }
-                val dialog = DatePickerDialog(
-                        requireContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        mDateSetListener,
-                        year, month, day);
-                dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+               getUserBrithDayFromCalender()
             }
         }
 
     }
     private fun subscribeToLiveData(){
         viewModel.message.observe(viewLifecycleOwner,{
-            when(it){
-                "Done"->{
-                    signInFragmentBinding.proSign.isVisible(false)
+            when(it.status){
+                Status.SUCCESS->{
+                    loadingDialog.hideprogress()
                     val action= SignInFragmentDirections.actionSignInFragmentToNavigationHome()
                     findNavController().navigate(action)
                 }
-                "loading"->{
-                    signInFragmentBinding.proSign.isVisible(true)
+                Status.LOADING->{
+                    loadingDialog.startDialog()
                 }
-                else ->{
-                    signInFragmentBinding.proSign.isVisible(false)
+                Status.ERROR ->{
+                  loadingDialog.hideprogress()
                     Toast.makeText(context, "Try Again Latter", Toast.LENGTH_LONG).show()
                 }
             }
@@ -170,7 +156,7 @@ class SignInFragment : Fragment() ,View.OnClickListener{
 
         }
     }
-    private   fun uploadData(gender :String){
+    private fun uploadData(gender :String){
      viewModel.signNewUser(signInFragmentBinding.signEmailFiled.text.toString()
      ,signInFragmentBinding.signPasswordFiled.text.toString()
      ,signInFragmentBinding.signWork.text.toString()
@@ -189,6 +175,25 @@ class SignInFragment : Fragment() ,View.OnClickListener{
     private fun isEmailValid(text: String?): Boolean {
         return text != null && text.contains('@')
     }
+    private fun getUserBrithDayFromCalender(){
+        val cal: Calendar = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR);
+        val month = cal.get(Calendar.MONTH);
+        val day = cal.get(Calendar.DAY_OF_MONTH);
+        val mDateSetListener = OnDateSetListener { datePicker, year, month, day ->
+            var month = month
+            month += 1
 
+            val date = "$day/$month/$year"
+            signInFragmentBinding.signBrithDay.setText(date)
+        }
+        val dialog = DatePickerDialog(
+                requireContext(),
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                mDateSetListener,
+                year, month, day);
+        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
 
 }

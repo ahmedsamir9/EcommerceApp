@@ -14,17 +14,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LoginFragmentViewModel @ViewModelInject constructor(private val loginRepo: LoginRepo): ViewModel() {
-    private val _message = MutableLiveData<String>()
-    val message: LiveData<String>
+    private val _message = MutableLiveData<Resources<Unit>>()
+    val message: LiveData<Resources<Unit>>
         get() = _message
     fun logUser(email:String,password:String):Boolean{
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 try {
                     loginRepo.logUserToFireBase(email,password)
+                    _message.postValue(Resources.success(Unit))
                 }
                 catch (ex :Exception){
-                    _message.postValue(ex.localizedMessage)
+                    _message.postValue(Resources.error(ex.localizedMessage,null))
                 }
 
             }
@@ -41,7 +42,7 @@ class LoginFragmentViewModel @ViewModelInject constructor(private val loginRepo:
                     loginRepo.forgetPassword(email)
                 }
                 catch (ex :Exception){
-                    _message.postValue(ex.localizedMessage)
+                    _message.postValue(Resources.error(ex.localizedMessage,null))
                 }
 
             }

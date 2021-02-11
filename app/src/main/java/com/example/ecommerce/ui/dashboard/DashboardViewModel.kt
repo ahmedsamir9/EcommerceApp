@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class DashboardViewModel @ViewModelInject constructor(private val cartRepo: CheckoutRepo): ViewModel() {
     val message = "No Orders In Cart"
-    private var orderId:String?= null
+ var orderId:String?= null
     private val _products = MutableLiveData<Resources<List<OrderWithProduct>>>()
     val products:LiveData<Resources<List<OrderWithProduct>>>
     get() = _products

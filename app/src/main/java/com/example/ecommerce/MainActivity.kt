@@ -2,6 +2,7 @@ package com.example.ecommerce
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,17 +27,16 @@ private lateinit var activityMainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityMainBinding =DataBindingUtil.setContentView(this,R.layout.activity_main)
+        setUpNavigation()
+    }
+    private fun setUpNavigation(){
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
         val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.navigation_home, R.id.navigation_cart, R.id.navigation_profile))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp()||super.onSupportNavigateUp()
@@ -52,11 +52,9 @@ private lateinit var activityMainBinding: ActivityMainBinding
     override fun hideNav() {
         activityMainBinding.navView.isVisible(false)
     }
-
     override fun showNav() {
         activityMainBinding.navView.isVisible(true)
     }
-
     override fun onDestroy() {
         val rememberMeOption = sharedPreferences.getString(CONSTANTS.REMEMBER_KEK_IN_PERF,"notSaved")
         if (rememberMeOption == CONSTANTS.REMEMBER_OPTION_NOTREMMBERED){

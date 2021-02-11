@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.View.OnClickListener
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -35,6 +36,13 @@ class CategoryProductsAdapter(private val interaction: Interaction? = null) :
            productItemBinding.product= item
             productItemBinding.root.setOnClickListener {
                 interaction?.onItemSelected(productItemBinding.productImg,item)
+            }
+            animateView(productItemBinding.root)
+        }
+        private fun animateView(viewToAnimate: View) {
+            if (viewToAnimate.animation == null) {
+                val animation = AnimationUtils.loadAnimation(viewToAnimate.context, R.anim.scale_xy)
+                viewToAnimate.animation = animation
             }
         }
     }

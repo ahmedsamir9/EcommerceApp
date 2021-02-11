@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.View.OnClickListener
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -68,7 +69,14 @@ class CartAdapter(private val interaction: Interaction? = null) :
 
                 }
             }
+            animateView(binding.root)
             }
+        private fun animateView(viewToAnimate: View) {
+            if (viewToAnimate.animation == null) {
+                val animation = AnimationUtils.loadAnimation(viewToAnimate.context, R.anim.scale_xy)
+                viewToAnimate.animation = animation
+            }
+        }
         }
 
 
