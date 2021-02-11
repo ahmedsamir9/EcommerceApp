@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Ecommerce</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">Shopping Cart</string>
+    <string name="title_notifications">Profile</string>
     <string name="boxo">Boxo</string>
     <string name="emailhint">Email</string>
     <string name="password_hint">Password</string>

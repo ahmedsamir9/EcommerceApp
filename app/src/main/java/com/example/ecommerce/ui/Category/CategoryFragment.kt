@@ -23,6 +23,7 @@ import com.example.ecommerce.databinding.CategoryFragmentBinding
 import com.example.ecommerce.model.Category
 import com.example.ecommerce.model.Product
 import com.example.ecommerce.ui.home.HomeFragmentDirections
+import com.example.ecommerce.utils.CONSTANTS
 import com.example.ecommerce.utils.Status
 import com.example.ecommerce.utils.UiDisapperAndAppearInActivity
 import com.example.ecommerce.utils.isVisible
@@ -69,7 +70,6 @@ class CategoryFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if(item.itemId == R.id.home) {
-            Toast.makeText(context,"lol",Toast.LENGTH_LONG).show()
             findNavController().popBackStack()
         }
         return super.onOptionsItemSelected(item)
@@ -114,6 +114,7 @@ class CategoryFragment : Fragment() {
         categoryFragmentBinding.productRv.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = catAdapter
+            addItemDecoration(CONSTANTS.ProductItemDecorator)
         }
     }
 

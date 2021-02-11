@@ -67,11 +67,16 @@ class DashboardFragment : Fragment() {
                     MaterialAlertDialogBuilder(requireContext())
                             .setMessage("Are you Sure you Want to Delete this Item")
                             .setPositiveButton("Yes") { dialog, which ->
+                                this@DashboardFragment.total =total-(item.quantity * item.productPrice)
+                                cartItemBinding.totalPrice.text= total.toString()
                                 dashboardViewModel.removeProduct(item)
                                 products.removeAt(position)
                                 cartAdapter.submitList(products)
-                                total -=(item.quantity * item.productPrice)
                                 cartAdapter.notifyItemRemoved(position)
+                                if (total == 0){
+                                    cartItemBinding.layouter.isVisible(false)
+                                    cartItemBinding.textInCart.isVisible(true)
+                                }
                             }.setNegativeButton("cancel"){_ ,_ ->}
                             .show()
                 }
@@ -98,6 +103,10 @@ class DashboardFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         dashboardViewModel.getProducts()
+        uiDisapperAndAppearInActivity.showNav()
+        uiDisapperAndAppearInActivity.showToolBar()
+        cartItemBinding.cartShimmer.isVisible(true)
+        cartItemBinding.cartShimmer.startShimmerAnimation()
         subscribeToLiveData()
     }
     private fun subscribeToLiveData(){
@@ -107,6 +116,8 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.products.observe(viewLifecycleOwner,{
         when(it.status){
             Status.SUCCESS->{
+                hideShimmerEffect()
+                total= 0
                 cartItemBinding.layouter.isVisible(true)
                 cartItemBinding.textInCart.isVisible(false)
                 products= it.data as MutableList<OrderWithProduct>
@@ -117,13 +128,12 @@ class DashboardFragment : Fragment() {
                 cartItemBinding.totalPrice.text= total.toString()
             }
             Status.ERROR->{
+                hideShimmerEffect()
                  cartItemBinding.layouter.isVisible(false)
                 cartItemBinding.textInCart.isVisible(true)
                 cartItemBinding.textInCart.text=it.message
             }
             Status.LOADING->{
-
-
             }
         }
         })
@@ -134,5 +144,14 @@ class DashboardFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = cartAdapter
         }
+    }
+    private fun hideShimmerEffect(){
+        cartItemBinding.cartShimmer.stopShimmerAnimation()
+        cartItemBinding.cartShimmer.isVisible(false)
+    }
+
+    override fun onPause() {
+        hideShimmerEffect()
+        super.onPause()
     }
 }

@@ -17,6 +17,7 @@ import com.example.ecommerce.databinding.AdsItemBinding
 import com.example.ecommerce.databinding.LoginFragmentFragmentBinding
 import com.example.ecommerce.utils.LoaderDialog
 import com.example.ecommerce.utils.OnClickOnItem
+import com.example.ecommerce.utils.Status
 import com.example.ecommerce.utils.UiDisapperAndAppearInActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,28 +49,11 @@ class LoginFragment : Fragment(),View.OnClickListener {
         uiDisapperAndAppearInActivity.hideNav()
         uiDisapperAndAppearInActivity.hideToolBar()
     }
-
-
-
     override fun onClick(v: View?) {
 
         when (v?.id) {
             R.id.log_btn-> {
-                if (!isPasswordValid( loginFragmentBinding.loginPassworfFiled.text.toString())) {
-                    loginFragmentBinding.loginPassworfFiled.error = getString(R.string.shr_error_password)
-                } else {
-                    loginFragmentBinding.loginPassworfFiled.error = null // Clear the error
-                    if(!isEmailValid(loginFragmentBinding.loginEmailFiled.text.toString())){
-                        loginFragmentBinding.loginEmailFiled.error = getString(R.string.shr_error_email)
-                        Toast.makeText(context,loginFragmentBinding.loginEmailFiled.text.toString(),Toast.LENGTH_LONG).show()
-                    }
-                    else{
-                        loginFragmentBinding.loginEmailFiled.error = null
-                       viewModel.logUser(loginFragmentBinding.loginEmailFiled.text.toString(),loginFragmentBinding.loginPassworfFiled.text.toString())
-                        val checkedRemembered =loginFragmentBinding.checkedBtn.isChecked
-                        viewModel.saveRememberOption(checkedRemembered)
-                        loadingDailog.startDialog()                    }
-                }
+               emailValidation()
             }
             R.id.forget_password_tv->{
                 if(!isEmailValid(loginFragmentBinding.loginEmailFiled.text.toString())){
@@ -87,32 +71,47 @@ class LoginFragment : Fragment(),View.OnClickListener {
             }
         }
     }
-
-
     private fun isPasswordValid(text: String?): Boolean {
         return text != null && text.length > 8
     }
     private fun isEmailValid(text: String?): Boolean {
         return text != null && text.contains('@')
     }
-        private fun loggedGoToHome(isLoged :Boolean){
-            if (isLoged){
-                loadingDailog.hideprogress()
-                val action = LoginFragmentDirections.actionLoginFragmentToNavigationHome()
-                findNavController().navigate(action)
-            }
-            else{
-                Toast.makeText(context,"Please try Again Latter ",Toast.LENGTH_LONG).show()
-            }
-        }
     private fun subcribeToLiveData(){
         viewModel.message.observe(viewLifecycleOwner,{
-            if (it == "done")   loggedGoToHome(true)
-                else{
-                Toast.makeText(context,it,Toast.LENGTH_LONG).show()
+            when(it.status){
+                Status.ERROR -> {
+                    loadingDailog.hideprogress()
+                    Toast.makeText(context,it.message,Toast.LENGTH_LONG).show()
                 }
-
+                Status.SUCCESS->{
+                    loadingDailog.hideprogress()
+                    val action = LoginFragmentDirections.actionLoginFragmentToNavigationHome()
+                    findNavController().navigate(action)
+                }
+            }
         })
+    }
+    private fun passwordValidation(){
+        if (!isPasswordValid( loginFragmentBinding.loginPassworfFiled.text.toString())) {
+            loginFragmentBinding.loginPassworfFiled.error = getString(R.string.shr_error_password)
+        } else {
+            loginFragmentBinding.loginPassworfFiled.error = null // Clear the error
+            viewModel.logUser(loginFragmentBinding.loginEmailFiled.text.toString(),loginFragmentBinding.loginPassworfFiled.text.toString())
+            val checkedRemembered =loginFragmentBinding.checkedBtn.isChecked
+            viewModel.saveRememberOption(checkedRemembered)
+            loadingDailog.startDialog()
+        }
+    }
+    private fun emailValidation(){
+        if(!isEmailValid(loginFragmentBinding.loginEmailFiled.text.toString())){
+            loginFragmentBinding.loginEmailFiled.error = getString(R.string.shr_error_email)
+            Toast.makeText(context,loginFragmentBinding.loginEmailFiled.text.toString(),Toast.LENGTH_LONG).show()
+        }
+        else{
+            loginFragmentBinding.loginEmailFiled.error = null
+           passwordValidation()
+        }
     }
     }
 

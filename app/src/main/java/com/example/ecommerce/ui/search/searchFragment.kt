@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,12 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerce.R
 import com.example.ecommerce.databinding.SearchFragmentBinding
 import com.example.ecommerce.model.Product
-import com.example.ecommerce.ui.home.HomeFragmentDirections
 import com.example.ecommerce.ui.home.adapters.ProductAdapter
 import com.example.ecommerce.utils.CONSTANTS
 import com.example.ecommerce.utils.Status
@@ -38,7 +37,7 @@ class SearchFragment : Fragment() {
    private lateinit var productAdapter : ProductAdapter
    private lateinit var searchFragmentBinding: SearchFragmentBinding
     private lateinit var uiDisapperAndAppearInActivity: UiDisapperAndAppearInActivity
-
+    private val args: SearchFragmentArgs by navArgs()
     private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(
@@ -63,13 +62,46 @@ class SearchFragment : Fragment() {
 
         })
         setUpRecyclerView()
+        searchFragmentBinding.scannerBtn.setOnClickListener {
+            findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToScannerFragment())
 
+        }
         viewLifecycleOwner.lifecycle.addObserver(viewModel)
+        args.itemName?.let {
+            setTextToSearchView(it)
+        }
         return searchFragmentBinding.root
     }
 
     override fun onStart() {
         super.onStart()
+        registerSearchQuery()
+        val query = searchFragmentBinding.searchView1.query
+        query?.let {
+            if (query.isNotEmpty()){
+                viewModel.getSpecificProduct(it.toString())
+            }
+        }
+
+        val listener = object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.getSpecificProduct(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                    viewModel.getSpecificProduct(newText)
+                return false
+            }
+        }
+        searchFragmentBinding.searchView1.setOnQueryTextListener(listener)
+        searchFragmentBinding.retryBtnProduct1.setOnClickListener{
+            viewModel.getProducts()
+        }
+        subscribeToLiveData()
+
+    }
+    private fun registerSearchQuery(){
         searchFragmentBinding.micBtn.setOnClickListener {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intent.putExtra(
@@ -85,23 +117,6 @@ class SearchFragment : Fragment() {
                 Toast.makeText(context, "Sorry you can't use Voice NOW", Toast.LENGTH_SHORT).show()
             }
         }
-
-        val listner = object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                    viewModel.getSpecificProduct(newText)
-                return false
-            }
-        }
-        searchFragmentBinding.searchView1.setOnQueryTextListener(listner)
-        searchFragmentBinding.retryBtnProduct1.setOnClickListener{
-            viewModel.getProducts()
-        }
-        subscribeToLiveData()
     }
 
     override fun onAttach(context: Context) {
@@ -114,6 +129,7 @@ class SearchFragment : Fragment() {
        searchFragmentBinding.productRv1.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = productAdapter
+           addItemDecoration(CONSTANTS.ProductItemDecorator)
         }
     }
 
@@ -122,7 +138,7 @@ class SearchFragment : Fragment() {
         if (requestCode == CONSTANTS.REQUEST_TO_VOICE){
             if(resultCode == Activity.RESULT_OK || null != data){
                 val result = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-               searchFragmentBinding.searchView1.setQuery(result?.get(0), true)
+                result?.get(0)?.let { setTextToSearchView(it) }
             }
 
         }
@@ -147,5 +163,12 @@ class SearchFragment : Fragment() {
                 }
             }
         })
+    }
+    private fun setTextToSearchView(itemName:String){
+        searchFragmentBinding.searchView1.performClick();
+        searchFragmentBinding.searchView1.requestFocus();
+        searchFragmentBinding.searchView1.isFocusable =true;
+        searchFragmentBinding.searchView1.isIconified = false;
+        searchFragmentBinding.searchView1.setQuery(itemName, true)
     }
 }

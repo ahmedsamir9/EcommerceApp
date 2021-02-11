@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.View.OnClickListener
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.ecommerce.R
@@ -38,6 +39,14 @@ class adsAdapter(private val interaction: OnClickOnItem? = null) :
            adsItemBinding.adsImg.setImageResource(item)
             adsItemBinding.root.setOnClickListener{
                 interaction?.onClickItem(0)
+            }
+            animateView(adsItemBinding.root)
+        }
+
+        private fun animateView(viewToAnimate: View) {
+            if (viewToAnimate.animation == null) {
+                val animation = AnimationUtils.loadAnimation(viewToAnimate.context, R.anim.scale_xy)
+                viewToAnimate.animation = animation
             }
         }
     }

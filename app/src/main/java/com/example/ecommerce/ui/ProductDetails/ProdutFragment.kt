@@ -19,6 +19,7 @@ import androidx.transition.TransitionInflater
 import com.example.ecommerce.R
 import com.example.ecommerce.databinding.ProdutFragmentBinding
 import com.example.ecommerce.model.Product
+import com.example.ecommerce.utils.LoaderDialog
 import com.example.ecommerce.utils.Status
 import com.example.ecommerce.utils.UiDisapperAndAppearInActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -32,7 +33,7 @@ class ProdutFragment : Fragment(),View.OnClickListener {
     private val viewModel: ProdutViewModel by viewModels()
     private lateinit var product :Product
     private lateinit var produtFragmentBinding:ProdutFragmentBinding
-    private lateinit var progDialog: ProgressDialog
+    private lateinit var progDialog: LoaderDialog
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,7 @@ class ProdutFragment : Fragment(),View.OnClickListener {
         product = args.product
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         produtFragmentBinding.product =product
-        progDialog = ProgressDialog(context)
+        progDialog = LoaderDialog(requireActivity())
         produtFragmentBinding.plusBtn.setOnClickListener(this)
         produtFragmentBinding.minusBtn.setOnClickListener(this)
         produtFragmentBinding.orderBtn.setOnClickListener(this)
@@ -88,15 +89,14 @@ class ProdutFragment : Fragment(),View.OnClickListener {
         viewModel.reqState.observe(viewLifecycleOwner, {
             when (it.status) {
                 Status.LOADING -> {
-                    progDialog.setTitle("loading")
-                    progDialog.show()
+                    progDialog.startDialog()
                 }
                 Status.SUCCESS -> {
-                    progDialog.dismiss()
+                    progDialog.hideprogress()
                     Toast.makeText(context, "Added In Cart ", Toast.LENGTH_SHORT).show()
                 }
                 Status.ERROR -> {
-                    progDialog.dismiss()
+                    progDialog.hideprogress()
                     MaterialAlertDialogBuilder(requireContext())
                             .setTitle("Error")
                             .setMessage("Can't Upload try again later")

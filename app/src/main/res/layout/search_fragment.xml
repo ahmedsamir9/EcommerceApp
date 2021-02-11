@@ -10,7 +10,6 @@
     tools:context=".ui.search.searchFragment">
 
     <com.google.android.material.button.MaterialButton
-
         android:id="@+id/mic_btn"
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="45dp"
@@ -30,10 +29,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
         android:id="@+id/search_view1"
+        android:layout_width="0dp"
+        app:iconifiedByDefault="false"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/scanner_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </androidx.appcompat.widget.SearchView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/scanner_btn"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        app:icon="@drawable/ic_baseline_qr_code_scanner_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="24dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/mic_btn"
         app:layout_constraintTop_toTopOf="parent" />

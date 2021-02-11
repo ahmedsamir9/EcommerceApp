@@ -29,7 +29,6 @@ class HomeViewModel @ViewModelInject constructor (private val homeRepository: Ho
                 _categories.postValue(Resources.loading(null))
                 withContext(Dispatchers.IO){
                     try {
-
                         val result = homeRepository.getCategories()
                         val categories = mutableListOf<Category>();
                         for(document in result.documents) {
@@ -42,7 +41,6 @@ class HomeViewModel @ViewModelInject constructor (private val homeRepository: Ho
                     }
                     catch (exception : Exception){
                         _categories.postValue(Resources.error(exception.localizedMessage , null))
-
                     }
                 }
             }

@@ -42,5 +42,7 @@ class RepositoryModule {
     @Provides
     @Singleton
     public fun provideSignRepoInstance(firebaseAuth: FirebaseAuth,sharedPerfrance :SharedPreferences,firebaseFirestore: FirebaseFirestore) =SignInRepo(sharedPerfrance,firebaseAuth,firebaseFirestore)
-
+    @Provides
+    @Singleton
+    public fun provideOrderRepoInstance(firebaseAuth: FirebaseAuth,firebaseFirestore: FirebaseFirestore) =OrdersRepository(firebaseFirestore,firebaseAuth)
 }

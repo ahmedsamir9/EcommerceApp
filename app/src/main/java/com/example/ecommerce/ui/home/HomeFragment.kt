@@ -67,6 +67,7 @@ class HomeFragment : Fragment() {
 
         })
         viewLifecycleOwner.lifecycle.addObserver(homeViewModel)
+
         setUpRecyclerView()
         setHasOptionsMenu(true)
         return homeBinding.root
@@ -161,7 +162,7 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.search_btn){
-            val action =HomeFragmentDirections.actionNavigationHomeToSearchFragment()
+            val action =HomeFragmentDirections.actionNavigationHomeToSearchFragment(null)
             findNavController().navigate(action)
         }
         return super.onOptionsItemSelected(item)

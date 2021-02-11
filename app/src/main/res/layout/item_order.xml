@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools">-->
+
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="product"-->
+<!--            type="com.example.ecommerce.model.Product" />-->
+<!--    </data>-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:id="@+id/materialCardView"-->
+<!--            setImageByGlide="@{product.itemImageUrl}"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:clipChildren="false"-->
+<!--            android:clipToPadding="false"-->
+<!--            android:divider="@android:color/transparent"-->
+<!--            android:dividerHeight="0.0px"-->
+<!--            android:elevation="8dp"-->
+<!--            app:cardElevation="4dp"-->
+<!--            app:cardPreventCornerOverlap="false"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/product_img"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    tools:src="@drawable/ic_box" />-->
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/materialTextView7"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@{product.itemName}"-->
+<!--                    android:textSize="32sp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/product_img"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    tools:text="ahmed samir cart" />-->
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/materialTextView10"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Quantity : "-->
+<!--                    android:textSize="34sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/product_img"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/materialTextView7" />-->
+
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/materialTextView14"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="34sp"-->
+<!--                    android:text="@{product.itemQuantity}"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/materialTextView10"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/materialTextView7"-->
+<!--                    tools:text="150" />-->
+
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/materialTextView11"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Price : "-->
+<!--                    android:textSize="34sp"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/product_img"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/materialTextView10" />-->
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="34sp"-->
+<!--                    android:id="@+id/xt"-->
+<!--                    android:text="@{String.valueOf(product.itemPrice)}"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/materialTextView11"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/materialTextView14"-->
+<!--                    tools:text="150" />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--        </com.google.android.material.card.MaterialCardView>-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--</layout>-->
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+</androidx.constraintlayout.widget.ConstraintLayout>

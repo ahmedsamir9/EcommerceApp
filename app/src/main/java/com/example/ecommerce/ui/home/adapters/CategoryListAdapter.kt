@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.View.OnClickListener
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.ecommerce.R
@@ -42,6 +43,13 @@ class CategoryListAdapter(private val interaction:Interaction? = null) :
                 CONSTANTS.CATEGORY_CLOTHEES -> binder.categoryImg.setImageResource(R.drawable.ic_tshirt)
                 CONSTANTS.CATEGORY_ELECTONICS -> binder.categoryImg.setImageResource(R.drawable.ic_cpu)
                 CONSTANTS.CATEGORY_FURNITURE -> binder.categoryImg.setImageResource(R.drawable.ic_furniture)
+            }
+            animateView(binder.root)
+        }
+        private fun animateView(viewToAnimate: View) {
+            if (viewToAnimate.animation == null) {
+                val animation = AnimationUtils.loadAnimation(viewToAnimate.context, R.anim.scale_xy)
+                viewToAnimate.animation = animation
             }
         }
     }
