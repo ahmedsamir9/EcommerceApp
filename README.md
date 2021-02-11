@@ -1,7 +1,7 @@
 # BOXO Android
 
 * sample  app (single activity) for mobile computing course in university
-## 🎥 Watch demo on [youtube](https://youtu.be/jPT40HjXRlI)
+## 🎥 Watch demo on [youtube](https://youtu.be/RcBKYnvbrmI)
 ## 🧐 About
 * ecommerce for ordring products
 
